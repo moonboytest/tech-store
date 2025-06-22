@@ -36,23 +36,36 @@
             </tr>
           </thead>
           <tbody id="cart-items"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4"></td>
+              <td>
+                <button id="clear-cart" class="remove-item">
+                  Очистить корзину
+                </button>
+              </td>
+            </tr>
+          </tfoot>
         </table>
         <p id="total-price"></p>
         <form id="order-form">
           <h2>Оформление заказа</h2>
           <label>Способ доставки:</label><br />
-          <label
-            ><input
-              type="radio"
-              name="delivery"
-              value="pickup"
-              checked
-            />Самовывоз</label
-          >
+          <div class="radio-group">
+            <label
+              ><input
+                type="radio"
+                name="delivery"
+                value="pickup"
+                checked
+              />Самовывоз</label
+            >
 
-          <label
-            ><input type="radio" name="delivery" value="courier" />Курьер</label
-          >
+            <label
+              ><input type="radio" name="delivery" value="courier" />Доставка
+              курьером по городу
+            </label>
+          </div>
           <div id="address-field" style="display: none">
             <label>Адрес доставки:</label>
             <input type="text" name="adress" placeholder="Введите адрес" />
@@ -62,7 +75,6 @@
           <p>Оплата при получении</p>
           <button type="submit" class="button">Оформить заказ</button>
         </form>
-        <button id="clear-cart" class="button">Очистить корзину</button>
       </div>
     </main>
     <footer>
