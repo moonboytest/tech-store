@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Моя корзина</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container header-wrapper">
+        <div class="logo">
+          <img src="../img/circuitry.svg" alt="logo" class="logo" />
+          <p>Tech Store</p>
+        </div>
+        <nav class="nav">
+          <ul class="nav-list">
+            <li><a href="../index.html">Главная</a></li>
+            <li><a href="../catalog.html">Каталог</a></li>
+            <li><a href="../contacts.html">Контакты</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="container cart-page">
+        <h1>Ваша корзина</h1>
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Товар</th>
+              <th>Цена</th>
+              <th>Кол-во</th>
+              <th>Сумма</th>
+              <th>Удалить</th>
+            </tr>
+          </thead>
+          <tbody id="cart-items"></tbody>
+        </table>
+        <p id="total-price"></p>
+        <form id="order-form">
+          <h2>Оформление заказа</h2>
+          <label>Способ доставки:</label><br />
+          <label
+            ><input
+              type="radio"
+              name="delivery"
+              value="pickup"
+              checked
+            />Самовывоз</label
+          >
+
+          <label
+            ><input type="radio" name="delivery" value="courier" />Курьер</label
+          >
+          <div id="address-field" style="display: none">
+            <label>Адрес доставки:</label>
+            <input type="text" name="adress" placeholder="Введите адрес" />
+          </div>
+
+          <h3>Оплата заказа</h3>
+          <p>Оплата при получении</p>
+          <button type="submit" class="button">Оформить заказ</button>
+        </form>
+        <button id="clear-cart" class="button">Очистить корзину</button>
+      </div>
+    </main>
+    <footer>
+      <div class="container footer-wrapper">
+        <p>&copy; 2025 Tech Store. Все права защещены.</p>
+        <ul class="footer-links">
+          <li>
+            <img src="../img/envelope.svg" alt="mail-icon" class="icon" />
+            <a href="mailto:info@techstore.ru">info@techstore.ru</a>
+          </li>
+          <li>
+            <img src="../img/phone-call.svg" alt="phone-icon" class="icon" />
+            <a href="tel:+79101779392">+7 (910)177-93-92</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+
+    <script>
+      const cartContainer = document.getElementById("cart-items");
+      const totalPriceEl = document.getElementById("total-price");
+      const clearBtn = document.getElementById("clear-cart");
+
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = "<p>Корзина пуста.</p>";
+      } else {
+        cart.forEach((item, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+    <td>
+      <img src="../${item.img}" alt="${
+            item.name
+          }" style="height: 50px; vertical-align: middle; margin-right: 10px;">
+      <a href="../${
+        item.link
+      }" style="color: inherit; text-decoration: underline;">${item.name}</a>
+    </td>
+    <td>${item.price} ₽</td>
+    <td>${item.quantity}</td>
+    <td>${item.price * item.quantity} ₽</td>
+    <td><button class="remove-item" data-index="${index}">Удалить</button></td>
+  `;
+          cartContainer.appendChild(row);
+          total += item.price * item.quantity;
+        });
+
+        totalPriceEl.textContent = `Итого: ${total} ₽`;
+      }
+
+      clearBtn.addEventListener("click", () => {
+        localStorage.removeItem("cart");
+        location.reload();
+      });
+
+      const deliveryRadios = document.querySelectorAll(
+        'input[name="delivery"]'
+      );
+      const addressField = document.getElementById("address-field");
+
+      deliveryRadios.forEach((radio) => {
+        radio.addEventListener("change", () => {
+          addressField.style.display =
+            radio.value === "courier" ? "block" : "none";
+        });
+      });
+
+      document.getElementById("order-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Спасибо за заказ!");
+        // Очистить корзину:
+        localStorage.removeItem("cart");
+        location.reload();
+      });
+
+      document.querySelectorAll(".remove-item").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const index = e.target.dataset.index;
+          cart.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          location.reload();
+        });
+      });
+    </script>
+  </body>
+</html>
