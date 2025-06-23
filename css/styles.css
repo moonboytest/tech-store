@@ -364,6 +364,27 @@ section h2 {
   color: #1e1e2f;
 }
 
+.notification {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #1e1e2f;
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(20px);
+  z-index: 10000;
+}
+
+.notification.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
 /* Страница товара */
 .product-page {
   margin: 0 auto;
@@ -622,5 +643,10 @@ section h2 {
 
   .product-specs {
     text-align: left;
+  }
+
+  .notification {
+    left: 50%;
+    transform: translateX(-50%);
   }
 }

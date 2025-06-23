@@ -123,7 +123,6 @@
         totalPriceEl.textContent = `Итого: ${total} ₽`;
       }
 
-      // 1️⃣ Удаление конкретного товара
       document.querySelectorAll(".remove-item").forEach((button) => {
         button.addEventListener("click", (e) => {
           const index = e.target.dataset.index;
@@ -133,13 +132,11 @@
         });
       });
 
-      // 2️⃣ Полная очистка корзины
       clearBtn.addEventListener("click", () => {
         localStorage.removeItem("cart");
         location.reload();
       });
 
-      // 3️⃣ Логика для формы
       const deliveryRadios = document.querySelectorAll(
         'input[name="delivery"]'
       );
@@ -152,7 +149,6 @@
         });
       });
 
-      // 4️⃣ Отправка заказа
       document.getElementById("order-form").addEventListener("submit", (e) => {
         e.preventDefault();
         alert("Спасибо за заказ!");
