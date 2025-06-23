@@ -103,19 +103,19 @@
         cart.forEach((item, index) => {
           const row = document.createElement("tr");
           row.innerHTML = `
-    <td data-label="Товар">
-      <img src="/${item.img}" alt="${
+  <td>
+    <img src="/tech-store/${item.img}" alt="${
             item.name
           }" style="height: 50px; vertical-align: middle; margin-right: 10px;">
-      <a href="../${
-        item.link
-      }" style="color: inherit; text-decoration: underline;">${item.name}</a>
-    </td>
-    <td data-label="Цена">${item.price} ₽</td>
-    <td data-label="Кол-во">${item.quantity}</td>
-    <td data-label="Сумма">${item.price * item.quantity} ₽</td>
-    <td data-label="Удалить"><button class="remove-item" data-index="${index}">Удалить</button></td>
-  `;
+    <a href="/tech-store/${
+      item.link
+    }" style="color: inherit; text-decoration: underline;">${item.name}</a>
+  </td>
+  <td>${item.price} ₽</td>
+  <td>${item.quantity}</td>
+  <td>${item.price * item.quantity} ₽</td>
+  <td><button class="remove-item" data-index="${index}">Удалить</button></td>
+`;
           cartContainer.appendChild(row);
           total += item.price * item.quantity;
         });
