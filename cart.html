@@ -4,21 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Моя корзина</title>
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <header>
       <div class="container header-wrapper">
         <div class="logo">
-          <img src="../img/circuitry.svg" alt="logo" class="logo" />
+          <img src="img/circuitry.svg" alt="logo" class="logo" />
           <p>Tech Store</p>
         </div>
         <nav class="nav">
           <ul class="nav-list">
-            <li><a href="../index.html">Главная</a></li>
-            <li><a href="../catalog.html">Каталог</a></li>
-            <li><a href="../contacts.html">Контакты</a></li>
-            <li><a href="../cart.html">Корзина</a></li>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="catalog.html">Каталог</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+            <li><a href="cart.html">Корзина</a></li>
           </ul>
         </nav>
       </div>
@@ -76,17 +76,18 @@
         <p>&copy; 2025 Tech Store. Все права защещены.</p>
         <ul class="footer-links">
           <li>
-            <img src="../img/envelope.svg" alt="mail-icon" class="icon" />
+            <img src="img/envelope.svg" alt="mail-icon" class="icon" />
             <a href="mailto:info@techstore.ru">info@techstore.ru</a>
           </li>
           <li>
-            <img src="../img/phone-call.svg" alt="phone-icon" class="icon" />
+            <img src="img/phone-call.svg" alt="phone-icon" class="icon" />
             <a href="tel:+79101779392">+7 (910)177-93-92</a>
           </li>
         </ul>
       </div>
     </footer>
 
+    <script src="../js/notification.js"></script>
     <script>
       const cartContainer = document.getElementById("cart-items");
       const totalPriceEl = document.getElementById("total-price");
@@ -95,7 +96,6 @@
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       let total = 0;
 
-      // Если корзина пустая
       if (cart.length === 0) {
         cartContainer.innerHTML =
           "<tr><td colspan='5'>Корзина пуста.</td></tr>";
@@ -114,7 +114,7 @@
     <td data-label="Цена">${item.price} ₽</td>
     <td data-label="Кол-во">${item.quantity}</td>
     <td data-label="Сумма">${item.price * item.quantity} ₽</td>
-    <td><button class="remove-item" data-index="${index}">Удалить</button></td>
+    <td data-label="Удалить"><button class="remove-item" data-index="${index}">Удалить</button></td>
   `;
           cartContainer.appendChild(row);
           total += item.price * item.quantity;
@@ -123,13 +123,13 @@
         totalPriceEl.textContent = `Итого: ${total} ₽`;
       }
 
-      document.querySelectorAll(".remove-item").forEach((button) => {
-        button.addEventListener("click", (e) => {
+      document.addEventListener("click", (e) => {
+        if (e.target.classList.contains("remove-item")) {
           const index = e.target.dataset.index;
           cart.splice(index, 1);
           localStorage.setItem("cart", JSON.stringify(cart));
           location.reload();
-        });
+        }
       });
 
       clearBtn.addEventListener("click", () => {
@@ -151,9 +151,11 @@
 
       document.getElementById("order-form").addEventListener("submit", (e) => {
         e.preventDefault();
-        alert("Спасибо за заказ!");
+        showNotification("Спасибо за заказ!");
         localStorage.removeItem("cart");
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
       });
     </script>
   </body>
