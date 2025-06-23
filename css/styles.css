@@ -228,6 +228,11 @@ footer {
   margin-top: 1rem;
 }
 
+.clear-cart {
+  text-align: right;
+  margin: 1rem 4.2rem;
+}
+
 #clear-cart {
   margin-top: 1rem;
 }
@@ -464,10 +469,81 @@ section h2 {
 
 /* Адаптив */
 
-@media (max-width: 932px) {
+@media (max-width: 667px) {
   .header-wrapper {
+    width: 100%;
     flex-direction: column;
     gap: 1rem;
+  }
+
+  .cart-table {
+    border: none;
+  }
+
+  .cart-table thead {
+    display: none;
+  }
+
+  .cart-table,
+  .cart-table tbody,
+  .cart-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .cart-table tr {
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: #fff;
+  }
+
+  .cart-table td {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+  }
+
+  .cart-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+  }
+
+  .cart-table img {
+    height: 40px;
+    margin-right: 0.5rem;
+  }
+
+  .cart-table td:first-child {
+    flex-direction: row;
+    align-items: center;
+  }
+  .cart-table td:first-child a {
+    display: inline-block;
+    max-width: 70%;
+    word-break: break-word;
+  }
+
+  #total-price {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  #order-form {
+    padding: 1rem;
+  }
+
+  #clear-cart {
+    display: inline-block;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+
+    margin: 1rem 0;
+  }
+
+  .clear-cart {
+    margin: 1rem 0;
   }
 
   .hero-content h1 {

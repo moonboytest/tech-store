@@ -18,6 +18,7 @@
             <li><a href="../index.html">Главная</a></li>
             <li><a href="../catalog.html">Каталог</a></li>
             <li><a href="../contacts.html">Контакты</a></li>
+            <li><a href="../cart.html">Корзина</a></li>
           </ul>
         </nav>
       </div>
@@ -36,17 +37,10 @@
             </tr>
           </thead>
           <tbody id="cart-items"></tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4"></td>
-              <td>
-                <button id="clear-cart" class="remove-item">
-                  Очистить корзину
-                </button>
-              </td>
-            </tr>
-          </tfoot>
         </table>
+        <div class="clear-cart">
+          <button id="clear-cart" class="remove-item">Очистить корзину</button>
+        </div>
         <p id="total-price"></p>
         <form id="order-form">
           <h2>Оформление заказа</h2>
@@ -99,16 +93,17 @@
       const clearBtn = document.getElementById("clear-cart");
 
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
       let total = 0;
 
+      // Если корзина пустая
       if (cart.length === 0) {
-        cartContainer.innerHTML = "<p>Корзина пуста.</p>";
+        cartContainer.innerHTML =
+          "<tr><td colspan='5'>Корзина пуста.</td></tr>";
       } else {
         cart.forEach((item, index) => {
           const row = document.createElement("tr");
           row.innerHTML = `
-    <td>
+    <td data-label="Товар">
       <img src="../${item.img}" alt="${
             item.name
           }" style="height: 50px; vertical-align: middle; margin-right: 10px;">
@@ -116,9 +111,9 @@
         item.link
       }" style="color: inherit; text-decoration: underline;">${item.name}</a>
     </td>
-    <td>${item.price} ₽</td>
-    <td>${item.quantity}</td>
-    <td>${item.price * item.quantity} ₽</td>
+    <td data-label="Цена">${item.price} ₽</td>
+    <td data-label="Кол-во">${item.quantity}</td>
+    <td data-label="Сумма">${item.price * item.quantity} ₽</td>
     <td><button class="remove-item" data-index="${index}">Удалить</button></td>
   `;
           cartContainer.appendChild(row);
@@ -128,11 +123,23 @@
         totalPriceEl.textContent = `Итого: ${total} ₽`;
       }
 
+      // 1️⃣ Удаление конкретного товара
+      document.querySelectorAll(".remove-item").forEach((button) => {
+        button.addEventListener("click", (e) => {
+          const index = e.target.dataset.index;
+          cart.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          location.reload();
+        });
+      });
+
+      // 2️⃣ Полная очистка корзины
       clearBtn.addEventListener("click", () => {
         localStorage.removeItem("cart");
         location.reload();
       });
 
+      // 3️⃣ Логика для формы
       const deliveryRadios = document.querySelectorAll(
         'input[name="delivery"]'
       );
@@ -145,21 +152,12 @@
         });
       });
 
+      // 4️⃣ Отправка заказа
       document.getElementById("order-form").addEventListener("submit", (e) => {
         e.preventDefault();
         alert("Спасибо за заказ!");
-        // Очистить корзину:
         localStorage.removeItem("cart");
         location.reload();
-      });
-
-      document.querySelectorAll(".remove-item").forEach((button) => {
-        button.addEventListener("click", (e) => {
-          const index = e.target.dataset.index;
-          cart.splice(index, 1);
-          localStorage.setItem("cart", JSON.stringify(cart));
-          location.reload();
-        });
       });
     </script>
   </body>
