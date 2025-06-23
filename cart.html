@@ -87,7 +87,7 @@
       </div>
     </footer>
 
-    <script src="../js/notification.js"></script>
+    <script src="js/notification.js"></script>
     <script>
       const cartContainer = document.getElementById("cart-items");
       const totalPriceEl = document.getElementById("total-price");
@@ -104,7 +104,7 @@
           const row = document.createElement("tr");
           row.innerHTML = `
     <td data-label="Товар">
-      <img src="../${item.img}" alt="${
+      <img src="/${item.img}" alt="${
             item.name
           }" style="height: 50px; vertical-align: middle; margin-right: 10px;">
       <a href="../${
