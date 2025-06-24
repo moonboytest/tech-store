@@ -377,6 +377,8 @@ section h2 {
   transition: opacity 0.3s ease, transform 0.3s ease;
   transform: translateY(20px);
   z-index: 10000;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .notification.show {
