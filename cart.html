@@ -122,12 +122,20 @@
       }
 
       document.addEventListener("click", (e) => {
-        if (e.target.classList.contains("remove-item")) {
+        if (
+          e.target.classList.contains("remove-item") &&
+          e.target.id !== "clear-cart"
+        ) {
           const index = e.target.dataset.index;
           cart.splice(index, 1);
           localStorage.setItem("cart", JSON.stringify(cart));
           location.reload();
         }
+      });
+
+      clearBtn.addEventListener("click", () => {
+        localStorage.removeItem("cart");
+        location.reload();
       });
 
       clearBtn.addEventListener("click", () => {
