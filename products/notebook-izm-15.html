@@ -84,5 +84,38 @@
       </div>
     </footer>
     <script src="../js/notification.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const button = document.querySelector(".button");
+
+        if (button) {
+          button.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            const name = document.querySelector("h1").innerText;
+            const price = parseInt(
+              document
+                .querySelector(".product-price")
+                .innerText.replace(/\D/g, "")
+            );
+            const img = document
+              .querySelector(".product-detail img")
+              .getAttribute("src");
+            const link = window.location.pathname;
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const existing = cart.find((item) => item.name === name);
+            if (existing) {
+              existing.quantity += 1;
+            } else {
+              cart.push({ name, price, quantity: 1, img, link });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            showNotification(`«${name}» добавлен в корзину!`);
+          });
+        }
+      });
+    </script>
   </body>
 </html>
