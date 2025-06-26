@@ -37,6 +37,7 @@ main {
 /* ----------------------------------------- */
 /* -------------/* Шапка /*----------------- */
 /* ----------------------------------------- */
+
 header {
   background-color: #1e1e2f;
   color: #f5f5f5;
@@ -60,6 +61,11 @@ header {
 .logo p {
   font-size: 1.5rem;
   font-weight: bold;
+  color: #f5f5f5;
+}
+
+.logo a {
+  text-decoration: none;
 }
 
 .nav-list {
@@ -126,7 +132,9 @@ footer {
   opacity: 0.7;
 }
 
-/* Главная страница */
+/* ----------------------------------------- */
+/* --------/* Главная страница /*----------- */
+/* ----------------------------------------- */
 
 .hero {
   background-color: #ffffff;
@@ -388,6 +396,27 @@ section h2 {
 /* ----------------------------------------- */
 /* ---------/* Обратная связь /*------------ */
 /* ----------------------------------------- */
+
+.feedback-text {
+  background-color: #f0f0f0;
+  max-width: 600px;
+  padding: 1.2rem;
+  margin: 3rem auto;
+  border-radius: 1rem;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.feedback-text h2 {
+  font-size: 1.8rem;
+}
+
+.feedback-text p {
+  font-size: 1.2rem;
+}
 
 #feedback-form {
   background-color: #f0f0f0;
