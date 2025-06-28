@@ -18,7 +18,8 @@
           <ul class="nav-list">
             <li><a href="catalog.html">Каталог</a></li>
             <li><a href="contacts.html">Обратная связь</a></li>
-            <li><a href="cart.html">Корзина</a></li>
+            <li class="cart-link"><a href="cart.html">Корзина</a>
+            <span id="cart-count"class="cart-count">0</span></li>
           </ul>
         </nav>
       </div>
@@ -280,6 +281,7 @@
         </ul>
       </div>
     </footer>
+    <script src="js/cart-count.js"></script>
     <script src="js/notification.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
